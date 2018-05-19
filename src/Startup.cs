@@ -8,6 +8,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Bifrost.Devices.Gpio.Core;
+using Bifrost.Devices.Gpio.Abstractions;
+using Bifrost.Devices.Gpio;
 
 namespace rpi_garage_door
 {
@@ -23,12 +26,20 @@ namespace rpi_garage_door
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddLogging();
+
             services.AddMvc();
+
+            services.AddSingleton<IGpioController, GpioController>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            var logLevel = env.IsEnvironment("DEV") || env.IsEnvironment("Local") ? LogLevel.Debug : LogLevel.Warning;
+            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            loggerFactory.AddDebug();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

@@ -9,7 +9,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
+    <PackageReference Include="Bifrost.Devices.Gpio" Version="0.0.2" />
+    <PackageReference Include="Bifrost.Devices.Gpio.Abstractions" Version="0.0.1" />
+    <PackageReference Include="Bifrost.Devices.Gpio.Core" Version="0.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore" Version="2.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.4" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.0.2" />
   </ItemGroup>
 
   <ItemGroup>
