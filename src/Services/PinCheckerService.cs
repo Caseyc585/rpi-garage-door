@@ -5,20 +5,22 @@ namespace rpi_garage_door.Services
 {
     public class PinCheckerService:IPinCheckerService
     {
-        private int[] pins = [1,2];
-
         private readonly IGpioController _gpioController;
         private readonly ILogger<PinsController> _logger;
+        private readonly PinSettings _pinSettings;
 
-        public PinCheckerService(IGpioController gpioController, ILogger<PinsController> logger)
+        public PinCheckerService(IGpioController gpioController, 
+                                IOptions<PinSettings> pinOptions, 
+                                ILogger<PinsController> logger)
         {
             _logger = logger;
             _gpioController = gpioController;
+            _pinSettings = pinSettings.Value;
         }
 
         public void CheckPins()
         {
-            foreach (var pin in pins)
+            foreach (var pin in _pinSettings.PinsToWatch)
             {
                 CheckPin(pin);
             }
