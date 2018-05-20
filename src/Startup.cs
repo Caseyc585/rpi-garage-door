@@ -30,10 +30,13 @@ namespace rpi_garage_door
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<PinSettings>(Configuration.GetSection("PinSettings"));
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+
             services.AddLogging();
 
             services.AddMvc();
 
+            services.AddSingleton<IDoorEventService, DoorEventService>();
             services.AddSingleton<IHostedService, SchedulerService>();
             services.AddSingleton<IGpioController, GpioController>();
             
