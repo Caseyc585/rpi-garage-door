@@ -1,4 +1,4 @@
-namespace rpi_garage_door
+namespace rpi_garage_door.Models
 {
     public class DoorEventBody
     {

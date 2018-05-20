@@ -4,7 +4,6 @@ using Bifrost.Devices.Gpio.Abstractions;
 using Bifrost.Devices.Gpio;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using rpi_garage_door.Models;
 
 namespace rpi_garage_door.Services
 {
@@ -12,26 +11,15 @@ namespace rpi_garage_door.Services
     {
         private readonly IGpioController _gpioController;
         private readonly ILogger<PinCheckerService> _logger;
-        private readonly PinSettings _pinSettings;
 
         public PinCheckerService(IGpioController gpioController, 
-                                IOptions<PinSettings> pinOptions, 
                                 ILogger<PinCheckerService> logger)
         {
             _logger = logger;
             _gpioController = gpioController;
-            _pinSettings = pinOptions.Value;
         }
 
-        public void CheckPins()
-        {
-            foreach (var pin in _pinSettings.PinsToWatch)
-            {
-                CheckPin(pin);
-            }
-        }
-
-        public void CheckPin(int pinId)
+        public int CheckPin(int pinId)
         {
             GpioPinValue pinStatus;
 
@@ -42,6 +30,7 @@ namespace rpi_garage_door.Services
 
             _logger.LogInformation("Returning pin status.");
             _logger.LogInformation(pinStatus.ToString());
+            return (int)pinStatus;
         }
     }
 }

@@ -11,12 +11,12 @@ namespace rpi_garage_door.Services
     {
         private Timer _timer;
         private readonly ILogger _logger;
-        private readonly IPinCheckerService _pinSvc;
+        private readonly IDoorMonitoringService _doorMonitoringService;
 
-        public SchedulerService(IPinCheckerService pinSvc, ILogger<PinCheckerService> logger)
+        public SchedulerService(IDoorMonitoringService doorMonitoringService, ILogger<PinCheckerService> logger)
         {
             _logger = logger;
-            _pinSvc = pinSvc;
+            _doorMonitoringService = doorMonitoringService;
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
@@ -32,7 +32,7 @@ namespace rpi_garage_door.Services
         private void DoWork(object state)
         {
             _logger.LogInformation("Running");
-            _pinSvc.CheckPins();
+            _doorMonitoringService.PerformCheck().RunSynchronously();
         }
 
         public Task StopAsync(CancellationToken cancellationToken)

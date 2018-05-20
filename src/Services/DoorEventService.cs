@@ -3,6 +3,7 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using rpi_garage_door.Models;
 
 namespace rpi_garage_door
 {

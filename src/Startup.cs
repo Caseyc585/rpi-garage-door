@@ -29,13 +29,14 @@ namespace rpi_garage_door
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<PinSettings>(Configuration.GetSection("PinSettings"));
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
             services.AddLogging();
 
             services.AddMvc();
 
+            services.AddSingleton<IDoorMonitoringService, DoorMonitoringService>();
+            services.AddSingleton<IDoorStateService, DoorStateService>();
             services.AddSingleton<IDoorEventService, DoorEventService>();
             services.AddSingleton<IHostedService, SchedulerService>();
             services.AddSingleton<IGpioController, GpioController>();

@@ -5,6 +5,6 @@ namespace rpi_garage_door.Services
 {
     public interface IPinCheckerService
     {
-        void CheckPins();
+        int CheckPin(int pinId);
     }
 }
