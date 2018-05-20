@@ -8,9 +8,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Hosting;
 using Bifrost.Devices.Gpio.Core;
 using Bifrost.Devices.Gpio.Abstractions;
 using Bifrost.Devices.Gpio;
+using rpi_garage_door.Services;
+using rpi_garage_door.Models;
 
 namespace rpi_garage_door
 {

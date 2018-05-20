@@ -1,7 +1,7 @@
-namespace rpi_garage_door.Services
+namespace rpi_garage_door.Models
 {
     public class PinSettings
     {
-        public List<int> PinsToWatch { get; set; }
+        public int[] PinsToWatch { get; set; }
     }
 }
