@@ -4,6 +4,8 @@ using Newtonsoft.Json;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using rpi_garage_door.Models;
+using System.Net.Http.Headers;
+using Newtonsoft.Json.Serialization;
 
 namespace rpi_garage_door
 {
@@ -24,9 +26,14 @@ namespace rpi_garage_door
             {
                 try	
                 {
-                    var json = JsonConvert.SerializeObject(body);
+                    var json = JsonConvert.SerializeObject(body,
+                    new JsonSerializerSettings 
+                    { 
+                        ContractResolver = new CamelCasePropertyNamesContractResolver() 
+                    });
                     var content = new StringContent(json);
-                    
+                    content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
                     HttpResponseMessage response = await client.PostAsync(_appSettings.DoorEventURL,  content);
                     response.EnsureSuccessStatusCode();
                     string responseBody = await response.Content.ReadAsStringAsync();
