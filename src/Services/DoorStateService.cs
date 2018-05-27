@@ -19,6 +19,7 @@ namespace rpi_garage_door
         {
             _logger = logger;
             _appSettings = options.Value;
+            _doors = new Dictionary<int, DoorState>();
         }
 
         public DoorState GetState(int id)
