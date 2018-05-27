@@ -32,7 +32,7 @@ namespace rpi_garage_door.Services
         private void DoWork(object state)
         {
             _logger.LogInformation("Running");
-            _doorMonitoringService.PerformCheck().RunSynchronously();
+            _doorMonitoringService.PerformCheck();
         }
 
         public Task StopAsync(CancellationToken cancellationToken)
