@@ -23,7 +23,7 @@ namespace rpi_garage_door.Services
         {
             GpioPinValue pinStatus;
 
-            _logger.LogInformation("About to get pin status.");
+            _logger.LogInformation("About to get pin status:" + pinId);
             var pin = _gpioController.OpenPin(pinId);
 
             pinStatus = pin.Read();
