@@ -16,11 +16,11 @@ namespace rpi_garage_door
 
         private readonly ILogger _logger;
         private readonly AppSettings _appSettings;
-        private readonly IPinCheckerService _pinCheckerService;
+        private readonly IPinService _pinCheckerService;
         private readonly IDoorStateService _doorStateService;
         private readonly IDoorEventService _doorEventService;
 
-        public DoorMonitoringService(IPinCheckerService pinCheckerService, 
+        public DoorMonitoringService(IPinService pinCheckerService, 
         IDoorStateService doorStateService,
         IDoorEventService doorEventService, 
         IOptions<AppSettings> options, 

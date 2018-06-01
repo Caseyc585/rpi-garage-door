@@ -7,13 +7,13 @@ using Microsoft.Extensions.Options;
 
 namespace rpi_garage_door.Services
 {
-    public class PinCheckerService:IPinCheckerService
+    public class PinService:IPinService
     {
         private readonly IGpioController _gpioController;
-        private readonly ILogger<PinCheckerService> _logger;
+        private readonly ILogger<PinService> _logger;
 
-        public PinCheckerService(IGpioController gpioController, 
-                                ILogger<PinCheckerService> logger)
+        public PinService(IGpioController gpioController, 
+                                ILogger<PinService> logger)
         {
             _logger = logger;
             _gpioController = gpioController;

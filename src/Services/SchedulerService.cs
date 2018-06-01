@@ -13,7 +13,7 @@ namespace rpi_garage_door.Services
         private readonly ILogger _logger;
         private readonly IDoorMonitoringService _doorMonitoringService;
 
-        public SchedulerService(IDoorMonitoringService doorMonitoringService, ILogger<PinCheckerService> logger)
+        public SchedulerService(IDoorMonitoringService doorMonitoringService, ILogger<PinService> logger)
         {
             _logger = logger;
             _doorMonitoringService = doorMonitoringService;

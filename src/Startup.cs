@@ -41,7 +41,7 @@ namespace rpi_garage_door
             services.AddSingleton<IHostedService, SchedulerService>();
             services.AddSingleton(typeof(IGpioController), GpioController.Instance);
             
-            services.AddSingleton<IPinCheckerService, PinCheckerService>();
+            services.AddSingleton<IPinService, PinService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
