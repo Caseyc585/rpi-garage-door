@@ -3,3 +3,4 @@ mono: none
 dotnet: 2.1
 script:
  - dotnet restore src
+ - dotnet publish src/rpi-garage-door.csproj
