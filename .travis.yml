@@ -4,9 +4,7 @@ dotnet: 2.1
 script:
  - dotnet restore src
  - dotnet publish src/rpi-garage-door.csproj -o build_out
- - cd src/build_out
- - ls
- - zip build.zip
+ - zip build src/build_out
 deploy:
   provider: releases
   api_key: $GITHUB_TOKEN
