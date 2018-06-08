@@ -5,6 +5,7 @@ script:
  - dotnet restore src
  - dotnet publish src/rpi-garage-door.csproj -o build_out
  - cd src/build_out
+ - ls
  - zip build.zip
 deploy:
   provider: releases
