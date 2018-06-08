@@ -9,5 +9,5 @@ deploy:
   provider: releases
   api_key: $GITHUB_TOKEN
   file_glob: true
-  file: src/build_out/build.zip
+  file: build.zip
   skip_cleanup: true
