@@ -3,4 +3,12 @@ mono: none
 dotnet: 2.1
 script:
  - dotnet restore src
- - dotnet publish src/rpi-garage-door.csproj
+ - dotnet publish src/rpi-garage-door.csproj -o publish
+deploy:
+  provider: releases
+  api_key: $GITHUB_TOKEN
+  file_glob: true
+  file: publish/**/*
+  skip_cleanup: true
+  on:
+    tags: true
