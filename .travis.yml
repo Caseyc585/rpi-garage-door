@@ -1,0 +1,16 @@
+language: csharp
+mono: none
+dotnet: 2.1
+script:
+ - dotnet restore src
+ - dotnet publish src/rpi-garage-door.csproj -o build_out
+ - cd src/build_out
+ - zip -r build .
+deploy:
+  provider: releases
+  api_key: $GITHUB_TOKEN
+  file_glob: true
+  file: build.zip
+  skip_cleanup: true
+  on:
+    tags: true
