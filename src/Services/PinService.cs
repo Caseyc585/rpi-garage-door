@@ -32,5 +32,14 @@ namespace rpi_garage_door.Services
             _logger.LogInformation(pinStatus.ToString());
             return (int)pinStatus;
         }
+
+        public bool WritePin(int pinId, GpioPinValue pinValue)
+        {
+            var pin = _gpioController.OpenPin(pinId);
+            pin.SetDriveMode(GpioPinDriveMode.Output);
+            _logger.LogInformation("Writing Pin: " + pinValue);
+            pin.Write(pinValue);
+            return true;
+        }
     }
 }

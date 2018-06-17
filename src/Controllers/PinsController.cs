@@ -4,6 +4,7 @@ using Bifrost.Devices.Gpio.Core;
 using Bifrost.Devices.Gpio.Abstractions;
 using Bifrost.Devices.Gpio;
 using Microsoft.Extensions.Logging;
+using rpi_garage_door.Services;
 
 namespace rpi_garage_door.Controllers
 {
@@ -11,12 +12,14 @@ namespace rpi_garage_door.Controllers
     public class PinsController : Controller
     {
         private readonly IGpioController _gpioController;
+        private readonly IPinService _pinService;
         private readonly ILogger<PinsController> _logger;
 
-        public PinsController(IGpioController gpioController, ILogger<PinsController> logger)
+        public PinsController(IGpioController gpioController, ILogger<PinsController> logger, IPinService pinService)
         {
             _logger = logger;
             _gpioController = gpioController;
+            _pinService = pinService;
         }
 
         // GET api/pins
@@ -47,20 +50,7 @@ namespace rpi_garage_door.Controllers
         public void SwitchPin(int pinId, int status)
         {
             _logger.LogInformation("About to change pin status.");
-            var pin = _gpioController.OpenPin(pinId);
-
-            pin.SetDriveMode(GpioPinDriveMode.Output);
-
-            if (status == 1)
-            {
-                _logger.LogInformation("Going on");
-                pin.Write(GpioPinValue.High);
-            }
-            else
-            {
-                _logger.LogInformation("Going off");
-                pin.Write(GpioPinValue.Low);
-            }
+            _pinService.WritePin(pinId, (GpioPinValue)status);
         }
     }
 }
