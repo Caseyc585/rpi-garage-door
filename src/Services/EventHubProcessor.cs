@@ -7,10 +7,10 @@ using Microsoft.Azure.EventHubs;
 using Microsoft.Azure.EventHubs.Processor;
 using Microsoft.Extensions.Logging;
 
-public class DoorEventProcessor : IEventProcessor
+public class EventHubProcessor : IEventProcessor
 {
     private readonly ILogger _logger;
-    public DoorEventProcessor(ILogger logger)
+    public EventHubProcessor(ILogger logger)
     {
         _logger = logger;
     }

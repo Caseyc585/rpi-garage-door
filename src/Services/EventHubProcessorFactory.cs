@@ -3,18 +3,18 @@ using Microsoft.Extensions.Logging;
 
 namespace rpi_garage_door.Services
 {
-    public class DoorEventProcessorFactory : IEventProcessorFactory
+    public class EventHubProcessorFactory : IEventProcessorFactory
     {
         private readonly ILogger _logger;
 
-        public DoorEventProcessorFactory(ILogger logger)
+        public EventHubProcessorFactory(ILogger logger)
         {
             _logger = logger;
         }
 
         public IEventProcessor CreateEventProcessor(PartitionContext context)
         {
-            return new DoorEventProcessor(_logger);
+            return new EventHubProcessor(_logger);
         }
     }
 }

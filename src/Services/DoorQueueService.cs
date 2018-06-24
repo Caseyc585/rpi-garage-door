@@ -34,7 +34,7 @@ public class DoorQueueService :IHostedService
         hubSettings.StorageContainerName);
 
         // Registers the Event Processor Host and starts receiving messages
-        await _eventProcessorHost.RegisterEventProcessorFactoryAsync(new DoorEventProcessorFactory(_logger));
+        await _eventProcessorHost.RegisterEventProcessorFactoryAsync(new EventHubProcessorFactory(_logger));
     }
 
     public async Task StopAsync(CancellationToken cancellationToken)
