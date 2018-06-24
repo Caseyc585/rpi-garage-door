@@ -24,14 +24,14 @@ namespace rpi_garage_door.Services
             _logger.LogInformation("Timed Background Service is starting.");
             
             _timer = new Timer(DoWork, null, TimeSpan.Zero, 
-                TimeSpan.FromSeconds(2));
+                TimeSpan.FromSeconds(5));
 
             return Task.CompletedTask;
         }
 
         private void DoWork(object state)
-        {
-            _logger.LogInformation("Running");
+        {   
+            _logger.LogInformation("Running " + DateTime.Now.ToString());
             _doorMonitoringService.PerformCheck();
         }
 

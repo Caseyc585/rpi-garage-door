@@ -211,3 +211,4 @@ test.out/
 user.ini
 
 git.properties
+src/appsettings.Local.json
