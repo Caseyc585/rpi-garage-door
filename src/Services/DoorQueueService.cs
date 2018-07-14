@@ -10,31 +10,38 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using rpi_garage_door;
 using rpi_garage_door.Models;
 using rpi_garage_door.Services;
 
 public class DoorQueueService :IHostedService
 {
-    public DoorQueueService(IOptions<AppSettings> options, ILogger<DoorQueueService> logger)
+    public DoorQueueService(IOptions<AppSettings> options, 
+                            ILogger<DoorQueueService> logger,
+                            IDoorEventService doorEventService)
     {
         _logger = logger;
+        _doorEventSvc = doorEventService;
+        _hubSettings = options.Value.DoorEventHubSettings;
     }
     private EventProcessorHost _eventProcessorHost;
     private ILogger<DoorQueueService> _logger;
-    private DoorEventHubSettings hubSettings;
+    private readonly IDoorEventService _doorEventSvc;
+    private readonly DoorEventHubSettings _hubSettings;
     
 
     public async Task StartAsync(CancellationToken cancellationToken)
     {
         _eventProcessorHost = new EventProcessorHost(
-        hubSettings.EventHubEntityPath,
+        _hubSettings.EventHubEntityPath,
         PartitionReceiver.DefaultConsumerGroupName,
-        hubSettings.EventHubConnectionString,
-        hubSettings.StorageConnectionString,
-        hubSettings.StorageContainerName);
+        _hubSettings.EventHubConnectionString,
+        _hubSettings.StorageConnectionString,
+        _hubSettings.StorageContainerName);
 
         // Registers the Event Processor Host and starts receiving messages
-        await _eventProcessorHost.RegisterEventProcessorFactoryAsync(new EventHubProcessorFactory(_logger));
+        await _eventProcessorHost
+            .RegisterEventProcessorFactoryAsync(new EventHubProcessorFactory(_logger, _doorEventSvc));
     }
 
     public async Task StopAsync(CancellationToken cancellationToken)
