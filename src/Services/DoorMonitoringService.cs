@@ -41,7 +41,7 @@ namespace rpi_garage_door
 
                 foreach (var door in doorSettings)
                 {
-                    var pinStatus = _pinCheckerService.CheckPin(door.Pin);
+                    var pinStatus = _pinCheckerService.CheckPin(door.CloseSensorPin);
 
                     var state = _doorStateService.GetState(door.Id);
 
