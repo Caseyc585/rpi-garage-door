@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Hosting;
 
-
 namespace rpi_garage_door.Services
 {
     public class SchedulerService:IHostedService, IDisposable
@@ -31,8 +30,21 @@ namespace rpi_garage_door.Services
 
         private void DoWork(object state)
         {   
-            _logger.LogInformation("Running " + DateTime.Now.ToString());
-            _doorMonitoringService.PerformCheck();
+            _timer?.Change(Timeout.Infinite, 0);
+            try
+            {
+                _logger.LogInformation("Running " + DateTime.Now.ToString());
+                _doorMonitoringService.PerformCheck();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e.ToString());
+            }
+            finally
+            {
+                // run in 5 seconds, every 5 seconds
+                _timer?.Change(TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(5));
+            }
         }
 
         public Task StopAsync(CancellationToken cancellationToken)
