@@ -39,7 +39,7 @@ namespace rpi_garage_door
             services.AddSingleton<IDoorStateService, DoorStateService>();
             services.AddSingleton<IDoorEventService, DoorEventService>();
             services.AddSingleton<IHostedService, SchedulerService>();
-            services.AddSingleton<IHostedService, DoorQueueService>();
+            // services.AddSingleton<IHostedService, DoorQueueService>();
             services.AddSingleton(typeof(IGpioController), GpioController.Instance);
             
             services.AddSingleton<IPinService, PinService>();
