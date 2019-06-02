@@ -29,6 +29,8 @@ namespace rpi_garage_door
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddApplicationInsightsTelemetry();
+
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
             services.AddLogging();
@@ -46,17 +48,8 @@ namespace rpi_garage_door
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
         {
-            var logLevel = env.IsEnvironment("DEV") || env.IsEnvironment("Local") ? LogLevel.Debug : LogLevel.Warning;
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
-
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-
             app.UseMvc();
         }
     }

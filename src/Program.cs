@@ -25,6 +25,12 @@ namespace rpi_garage_door
             WebHost.CreateDefaultBuilder(args)
                 .UseConfiguration(config)
                 .UseStartup<Startup>()
+                .ConfigureLogging((context, builder) =>
+                {
+                    builder.AddConfiguration(context.Configuration.GetSection("Logging"));
+                    builder.AddConsole();
+                    builder.AddApplicationInsights();
+                })
                 .Build();
     }
 }
